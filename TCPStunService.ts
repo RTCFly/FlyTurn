@@ -1,12 +1,11 @@
 import { inject, injectable } from 'inversify';
 
 import { Symbols } from './symbols';
-class TCPStunService {
+
+@injectable()
+class TCPStunService implements IStunService{
     
-    private server : IStunServer;
-    
-    constructor(@inject(Symbols.IStunServer) private stunServer: IStunServer) { 
-        this.server = stunServer;
+    constructor() {
     }
 }
 
