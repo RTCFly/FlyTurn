@@ -1,16 +1,26 @@
 import 'reflect-metadata';
 
 import { Symbols } from './symbols'
-import { container } from './container';
+import { tcpContainer, udpContainer } from './container';
 
-const stunServices = [];
-//const service = container.get<IUserService>(Symbols.IStunServer);
+const stunServices :Array<IStunServer> = [];
 
 
-if (require.main === module) {
-    process.argv.forEach(function (val, index, array) {
+let i = 0; 
+let foundUdp = true
+console.log("go")
+process.argv.forEach(function (val, index, array) {
+    console.log("args", val);
+    if(val === "--tcp"){
+        stunServices.push(tcpContainer.get<IStunServer>(Symbols.IStunServer));
+    }
+    if(val === "--no-udp"){
+        foundUdp = false; 
+    }
+    if(i === index && foundUdp){
+        stunServices.push(udpContainer.get<IStunServer>(Symbols.IStunServer));
+    }else{
+        i++
+    }
       
-    });
-} else {
-    console.log('required as a module');
-}
+});
