@@ -1,5 +1,6 @@
 const Symbols = {
-    IStunServer: Symbol('IStunServer')
+    IStunService: Symbol('IStunService'),
+    IServer: Symbol("IServer")
 };
 
 export { Symbols }

@@ -10,15 +10,16 @@ let i = 0;
 let foundUdp = true
 console.log("go")
 process.argv.forEach(function (val, index, array) {
-    console.log("args", val);
     if(val === "--tcp"){
-        stunServices.push(tcpContainer.get<IStunServer>(Symbols.IStunServer));
+        console.log("starting tcp");
+        stunServices.push(tcpContainer.get<IStunService>(Symbols.IStunService));
     }
     if(val === "--no-udp"){
         foundUdp = false; 
     }
     if(i === index && foundUdp){
-        stunServices.push(udpContainer.get<IStunServer>(Symbols.IStunServer));
+        console.log("starting udp")
+        stunServices.push(udpContainer.get<IStunService>(Symbols.IStunService));
     }else{
         i++
     }
