@@ -6,11 +6,11 @@ export default class Tcp implements IProtocolProxy {
     constructor(
 	    @inject(Symbols.IServer) server: any){
         this._server = server;
-        this._serverInstance = this._server.createServer(socket => socket.on('data', data => this.onMessage(data)));
+        this._serverInstance = this._server.createServer(socket => socket.on('data', data => this.onMessage(data, socket.address())));
         //Could add a log here
         this._serverInstance.listen(1234);
     }
-    private onMessage(data:any){
+    private onMessage(data:Buffer, rinfo: IRInfo){
         
     }
 }
